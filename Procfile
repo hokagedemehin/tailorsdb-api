@@ -1,1 +1,1 @@
-web: gunicorn tailorsdb.wsgi
+web: gunicorn tailorsdb.wsgi --log-file -
