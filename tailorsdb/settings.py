@@ -194,6 +194,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://localhost:3000",
     "http://127.0.0.1:9000",
+    "https://tailors-db.herokuapp.com" "https://new.tailorsdb.com",
 ]
 
 EMAIL_HOST = env("EMAIL_HOST")
@@ -205,11 +206,13 @@ EMAIL_USE_TLS = env("EMAIL_USE_TLS")
 
 TAILWIND_APP_NAME = "tailors_theme"
 
-INTERNAL_IPS = ["127.0.0.1", "localhost"]
+INTERNAL_IPS = ["127.0.0.1", "localhost", "tailors-db.herokuapp.com"]
 
 NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
-ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = "https://tailorsdb.com"
+ACCOUNT_EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = (
+    "https://new.tailorsdb.com/login"
+)
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
