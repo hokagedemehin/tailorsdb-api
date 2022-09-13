@@ -171,7 +171,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 
@@ -194,7 +194,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",
     "http://localhost:3000",
     "http://127.0.0.1:9000",
-    "https://tailors-db.herokuapp.com" "https://new.tailorsdb.com",
+    "https://tailors-db.herokuapp.com",
+    "https://new.tailorsdb.com",
 ]
 
 EMAIL_HOST = env("EMAIL_HOST")
