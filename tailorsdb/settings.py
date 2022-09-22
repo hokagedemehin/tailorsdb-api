@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "users",
     "rest_framework",
     "rest_framework.authtoken",
+    "django_filters",
     "dj_rest_auth",
     "allauth",
     "corsheaders",
@@ -148,11 +149,16 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
     ],
     "DEFAULT_SCHEMA_CLASS": "rest_framework.schemas.coreapi.AutoSchema",
+    "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
 }
 
 REST_AUTH_SERIALIZERS = {
     "USER_DETAILS_SERIALIZER": "users.serializers.UserSerializer",
     # "TOKEN_SERIALIZER": "users.serializers.TokenSerializer",
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    "REGISTER_SERIALIZER": "users.serializers.CustomRegisterSerializer",
 }
 
 
@@ -199,6 +205,15 @@ CORS_ALLOWED_ORIGINS = [
     "https://new.tailorsdb.com",
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:8080",
+    "http://localhost:8000",
+    "http://localhost:3000",
+    "http://127.0.0.1:9000",
+    "https://tailors-db.herokuapp.com",
+    "https://new.tailorsdb.com",
+]
+
 EMAIL_HOST = env("EMAIL_HOST")
 EMAIL_PORT = env("EMAIL_PORT")
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
@@ -223,3 +238,17 @@ import dj_database_url
 
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES["default"].update(db_from_env)
+
+LOGIN_REDIRECT_URL = env("LOGIN_REDIRECT_URL")
+FRONTEND_URL = env("FRONTEND_URL")
+# LOGIN_URL = env("LOGIN_URL")
+
+LOGOUT_REDIRECT_URL = env("LOGOUT_REDIRECT_URL")
+
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_ADAPTER = "users.adapter.UserCustomAdapter"
+
+REST_AUTH_PW_RESET_USE_SITES_DOMAIN = True

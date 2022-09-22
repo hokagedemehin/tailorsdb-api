@@ -17,19 +17,29 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from rest_framework.schemas import get_schema_view
 from rest_framework.documentation import include_docs_urls
+from rest_framework import routers
 
-from dj_rest_auth.views import (
-    # LoginView,
-    # LogoutView,
-    # PasswordChangeView,
-    PasswordResetConfirmView,
-    # PasswordResetView,
-    # UserDetailsView,
-)
+# from dj_rest_auth.views import (
+#     # LoginView,
+#     # LogoutView,
+#     # PasswordChangeView,
+#     PasswordResetConfirmView,
+#     # PasswordResetView,
+#     # UserDetailsView,
+# )
 from django.views.generic import TemplateView, RedirectView
+
+from . import views
+from users import views as user_views
+from users.views import EmailAddressListView
+
+router = routers.SimpleRouter()
+router.register(r"users", EmailAddressListView)
 
 urlpatterns = [
     # re_path(r"^$", TemplateView.as_view(template_name="home.html"), name="home"),
+    path("accounts/login/", views.login, name="account_login"),
+    path("accounts/email/", views.email, name="account_email"),
     re_path(
         r"^password-reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,32})/$",
         TemplateView.as_view(template_name="password_reset_confirm.html"),
@@ -95,5 +105,6 @@ urlpatterns = [
         RedirectView.as_view(url="/", permanent=True),
         name="profile-redirect",
     ),
+    path("", include(router.urls)),
     path("__reload__/", include("django_browser_reload.urls")),
 ]

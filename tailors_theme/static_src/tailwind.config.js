@@ -44,7 +44,7 @@ module.exports = {
     theme: {
         extend: {},
     },
-    // prefix: 'tw-',
+    prefix: 'tw-',
     plugins: [
         /**
          * '@tailwindcss/forms' is the forms plugin that provides a minimal styling

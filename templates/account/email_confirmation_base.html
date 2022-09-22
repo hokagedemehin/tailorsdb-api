@@ -1,0 +1,64 @@
+{% load static tailwind_tags %}
+{% load i18n %}
+{% load account %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Django-tailorsdb-api">
+  <meta name="author" content="Demehin Ibukun">
+
+  <title>Tailors DB API</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+    crossorigin="anonymous">
+
+  {% tailwind_css %}
+
+</head>
+
+<body role="document">
+
+  <div class="container" role="main">
+    <div style='width: 100%; display: flex; justify-content: center;'>
+      <div
+        class="tw-rounded-full tw-overflow-hidden tw-border tw-shadow-md tw-border-dotted tw-w-fit tw-mb-4"
+        style='border-radius: 9999px; overflow: hidden; width: fit-content; border-style: dotted; border-width: 1px; margin-bottom: 10px;'>
+        <img
+          src="https://res.cloudinary.com/dnc04r7sc/image/upload/v1662029268/tailors/icons/ms-icon-310x310_npff2f.png"
+          alt="Tailors DB Logo" class="img-fluid"
+          style="width: 100px; height: 100px; margin: 0 auto; display: block;" class='' />
+      </div>
+    </div>
+
+    {% autoescape off %}{% blocktrans with site_name=current_site.name %}Hello from
+    {{ site_name }}!{% endblocktrans %}
+
+    {% block content %}{% endblock %}
+
+    {% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+    <p>Thank you for using {{ site_name }}!</p>
+
+    <p>The {{ site_domain }} team</p>
+    {% endblocktrans %}
+    {% endautoescape %}
+  </div>
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  {% block script %}{% endblock %}
+</body>
+
+</html>

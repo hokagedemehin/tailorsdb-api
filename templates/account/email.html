@@ -1,0 +1,205 @@
+{% load tailwind_tags %}
+{% load i18n %}
+{% load account %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Django-tailorsdb-api">
+  <meta name="author" content="Demehin Ibukun">
+
+  <title>Confirm E-mail Address</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+    crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
+  {% tailwind_css %}
+
+</head>
+
+<body role="document">
+
+  <div class="container tw-px-4 tw-pb-4 tw-flex tw-flex-col tw-justify-center tw-items-center"
+    role="main">
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="check-circle-fill" viewBox="0 0 16 16">
+        <path
+          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+      </symbol>
+      <symbol id="info-fill" viewBox="0 0 16 16">
+        <path
+          d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+      </symbol>
+      <symbol id="exclamation-triangle-fill" viewBox="0 0 16 16">
+        <path
+          d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+      </symbol>
+    </svg>
+    <div class="container tw-mb-4">
+      <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid tw-flex tw-space-x-4" style='justify-content: flex-end;'>
+          {% if user.is_authenticated %}
+          <a href="{{ profile_url1 }}" class='tw-text-lg tw-font-semibold'>Profile</a>
+          <a href="{% url 'account_logout' %}" class='tw-text-lg tw-font-semibold'>Sign Out</a>
+          {% endif %}
+        </div>
+      </nav>
+    </div>
+    {% if messages %}
+    <div>
+      {% for message in messages%}
+      <div
+        class="alert alert-info tw-flex tw-items-center alert-dismissible fade show tw-h-14 tw-w-fit tw-mb-2"
+        role="alert">
+        <svg class="bi flex-shrink-0 me-2 tw-w-4" role="img" aria-label="Info:">
+          <use xlink:href="#info-fill" />
+        </svg>
+
+        <div>
+          {{message}}
+        </div>
+        <button type="button" class="btn-close tw-flex tw-items-center " data-bs-dismiss="alert"
+          aria-label="Close">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    <div
+      class="tw-rounded-full tw-overflow-hidden tw-border tw-shadow-md tw-border-dotted tw-w-fit">
+      <img
+        src="https://res.cloudinary.com/dnc04r7sc/image/upload/v1662029268/tailors/icons/ms-icon-310x310_npff2f.png"
+        alt="Tailors DB Logo" class="img-fluid"
+        style="width: 150px; height: 150px; margin: 0 auto; display: block;" class='' />
+    </div>
+
+    <h1 class='tw-text-xl md:tw-text-3xl tw-font-extrabold tw-text-purple-500 tw-mt-6 tw-mb-3'>
+      {% trans "E-mail Address" %}
+    </h1>
+
+    {% if user.emailaddress_set.all %}
+    <p class='tw-my-3 tw-font-semibold tw-text-center'>
+      {% trans 'The following e-mail addresses are associated with your account:' %}
+
+    </p>
+
+    <form action="{% url 'account_email' %}" class="email_list" method="post">
+      {% csrf_token %}
+      <fieldset class="blockLabels">
+
+        <div
+          class='tw-border tw-border-dashed tw-border-purple-200 tw-p-3 tw-rounded-md tw-shadow-md tw-my-3'>
+          {% for emailaddress in user.emailaddress_set.all %}
+          <div class="ctrlHolder tw-mb-2">
+            <label for="email_radio_{{forloop.counter}}"
+              class="tw-text-sm sm:tw-text-base md:tw-text-lg {% if emailaddress.primary %}primary_email tw-font-bold{%endif%}">
+
+              <input class='' id="email_radio_{{forloop.counter}}" type="radio" {%if
+                emailaddress.primary or user.emailaddress_set.count==1%} checked="checked" {%endif
+                %} name="email" value="{{emailaddress.email}}" />
+
+              {{ emailaddress.email }}
+              {% if emailaddress.verified %}
+              <span class="verified"></span>
+              <span class="badge rounded-pill text-bg-success">
+                {% trans "Verified" %}
+              </span>
+              {% else %}
+              <span class="unverified"></span>
+              <span class="badge rounded-pill text-bg-warning">
+                {% trans "Unverified" %}
+              </span>
+              {% endif %}
+              {% if emailaddress.primary %}<span class="primary"></span>
+              <span class="badge rounded-pill text-bg-primary">
+                {% trans "Primary" %}
+              </span>
+
+              {% endif%}
+            </label>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div
+          class="buttonHolder tw-flex tw-flex-row tw-flex-wrap tw-justify-center tw-items-center tw-gap-2">
+          <button class="secondaryAction btn btn-outline-success" type="submit"
+            name="action_primary">
+            {% trans 'Make Primary' %}
+          </button>
+          <button class="secondaryAction btn btn-outline-primary" type="submit"
+            name="action_send">{% trans 'Resend Verification' %}
+          </button>
+          <button class="primaryAction btn btn-outline-danger" type="submit" name="action_remove">
+            {% trans 'Remove' %}</button>
+        </div>
+
+      </fieldset>
+    </form>
+
+    {% else %}
+    <p class='tw-font-semibold tw-text-xs sm:tw-text-base'><strong>{% trans 'Warning:'%}</strong>
+      {% trans "You currently do not have any e-mail address set up. You should really add an e-mail
+      address so you can receive notifications, reset yourpassword, etc."%}
+    </p>
+
+    {% endif %}
+
+    <div class='tw-mt-6 tw-py-4 tw-px-6 tw-rounded-lg tw-border tw-shadow-md'>
+      {% if can_add_email %}
+      <h2 class='tw-mb-0 tw-text-base md:tw-text-xl tw-font-bold'>{% trans "Add E-mail Address" %}
+      </h2>
+
+      <form method="post" action="{% url 'account_email' %}"
+        class="add_email  tw-space-y-3 tw-flex tw-flex-col tw-font-semibold ">
+        {% csrf_token %}
+        {{ form.as_table }}
+        <button name="action_add" type="submit" class='btn btn-outline-dark'>
+          {% trans "Add E-mail"%}
+        </button>
+      </form>
+      {% endif %}
+    </div>
+
+
+
+  </div>
+  <!-- Bootstrap core JavaScript
+    ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  {% block script %}{% endblock %}
+
+  {% block extra_body %}
+  <script type="text/javascript">
+    ( function () {
+      var message = "{% trans 'Do you really want to remove the selected e-mail address?' %}";
+      var actions = document.getElementsByName( 'action_remove' );
+      if ( actions.length ) {
+        actions[ 0 ].addEventListener( "click", function ( e ) {
+          if ( !confirm( message ) ) {
+            e.preventDefault();
+          }
+        } );
+      }
+    } )();
+  </script>
+  {% endblock %}
+</body>
+
+</html>

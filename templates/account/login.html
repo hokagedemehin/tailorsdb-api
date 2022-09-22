@@ -1,0 +1,38 @@
+{% extends "account/login_base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+<h1 class='tw-text-xl md:tw-text-3xl tw-font-extrabold tw-text-purple-500 tw-mt-6 tw-mb-3'>
+  {% trans "Verification Sign In" %}</h1>
+
+{% get_providers as socialaccount_providers %}
+
+
+<form
+  class="login tw-flex tw-flex-col tw-space-y-2 tw-p-3 tw-justify-center tw-items-center tw-border tw-shadow-md tw-rounded-lg tw-font-semibold"
+  method="POST" id='tailordb_login_form'>
+  {% csrf_token %}
+  <div class="tw-space-y-3 tw-mb-2 tw-flex tw-flex-col  tw-p-4">
+    {{ form.as_div }}
+    <div class="tw-flex tw-items-center tw-text-sm tw-font-semibold ">
+      <span class='tw-mr-1'>Show Password: </span><input type="checkbox" onclick="myFunction()"
+        class=''>
+    </div>
+  </div>
+  {% if redirect_field_value %}
+  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <div class="tw-flex tw-space-x-2">
+    <button class="primaryAction btn btn-outline-success tw-w-fit" type="submit">
+      {% trans "Sign In"%}
+    </button>
+    <a href='{{ profile_url1 }}' class='btn btn-outline-info tw-w-fit'>Back to profile</a>
+  </div>
+</form>
+
+{% endblock %}

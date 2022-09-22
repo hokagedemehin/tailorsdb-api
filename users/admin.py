@@ -14,7 +14,7 @@ fields[1] = (
             "email",
             "phone",
             "address",
-            "birthday",
+            "gender",
             "is_customer",
             "is_tailor",
         )
