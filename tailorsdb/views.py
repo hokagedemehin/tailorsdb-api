@@ -16,12 +16,14 @@ from django.urls import reverse, reverse_lazy
 from allauth.utils import get_request_param
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib.sites.models import Site
-
+from rest_framework.views import APIView
 from django.contrib.auth.decorators import login_required
 
 import environ
 from pathlib import Path
 import os
+from django.shortcuts import render
+from django.http import HttpResponse
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env(
@@ -29,6 +31,39 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
+
+
+class HomeView(APIView):
+    # get the current site and return it to the home.html template
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        current_site = Site.objects.get_current()
+        admin_url = reverse("admin:index")
+        docs_url = f"https://{current_site.domain}/docs/"
+        context.update(
+            {
+                "current_site": current_site,
+                "admin_url": admin_url,
+                "docs_url": docs_url,
+            }
+        )
+
+    def get(self, request):
+        # generate the absolute url to admin page and docs page and pass it to the home.html template
+        # current_site = Site.objects.get_current()
+        admin_url = request.build_absolute_uri("admin")
+        docs_url = request.build_absolute_uri("docs")
+        # print(uri)
+        # admin_url = f"https://{current_site.domain}/admin/"
+        # docs_url = f"https://{current_site.domain}/docs/"
+        context = {
+            "admin_url": admin_url,
+            "docs_url": docs_url,
+        }
+        return render(request, "home.html", context)
+
+
+home = HomeView.as_view()
 
 
 class CustomLoginView(LoginView):

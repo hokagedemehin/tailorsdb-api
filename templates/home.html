@@ -1,0 +1,92 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Django-tailorsdb-api">
+  <meta name="author" content="Demehin Ibukun">
+  <link rel='icon'
+    href='https://res.cloudinary.com/dnc04r7sc/image/upload/v1663846864/tailors/icons/tailorlogo6_bf8vhr.png' />
+  <title>TailorsDB API</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+    crossorigin="anonymous">
+  <link rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+  {% tailwind_css %}
+
+</head>
+
+<body role="document" class='tw-border' style='min-height: 100vh;'>
+  <div class="tw-flex tw-flex-col tw-space-y-3 tw-h-full ">
+    <nav class='tw-flex tw-justify-between tw-items-center tw-px-4'>
+      <div class=' tw-w-full'>
+        <img
+          src='https://res.cloudinary.com/dnc04r7sc/image/upload/v1663846864/tailors/icons/tailorlogo6_bf8vhr.png'
+          alt='website logo' style='width: 50px; height: 50px;' class='tw-object-contain tw-rounded-full tw-cursor-pointer
+          tw-overflow-hidden' />
+      </div>
+
+      <div class='tw-flex tw-space-x-4'>
+        <a href="{{ admin_url }}"
+          class='tw-text-gray-500 tw-text-sm tw-font-semibold tw-uppercase tw-px-3 tw-py-2 tw-rounded-lg tw-transition-colors tw-duration-200 tw-hover:text-gray-800'>
+          Admin
+        </a>
+        <a href="{{ docs_url }}" class='tw-text-gray-500 tw-text-sm tw-font-semibold tw-uppercase tw-px-3 tw-py-2
+          tw-rounded-lg tw-transition-colors tw-duration-200 tw-hover:text-gray-800'>
+          Docs
+        </a>
+
+      </div>
+    </nav>
+
+    <div style='margin-top: 10vh;' class='tw-flex tw-justify-center tw-items-center'>
+      <div class='tw-px-4 tw-flex tw-flex-col tw-items-center tw-space-y-3 '>
+        <div style='width: 90%;' class=' '>
+          <div class='tw-flex tw-flex-col tw-items-center tw-space-y-2 '>
+            <div class='tw-flex tw-flex-col tw-items-center tw-justify-center'>
+              <span
+                style='font-size: 1.5rem; line-height: 1.8rem; font-weight: 700; color: #2d3748;'
+                class='tw-text-center'>
+                Revolutionary way to store client&apos;s measurements
+              </span>
+
+            </div>
+            <p style='width: 80%;' class=' tw-text-center tw-text-xs tw-text-gray-600'>
+              Get and save all your client&apos;s measurements safely and access
+              them anytime, anywhere. No more lost data. No more stress.
+            </p>
+          </div>
+          <div class="tw-flex tw-justify-center tw-mt-4">
+            <a href="{{ docs_url }}"
+              style='background-color: green; color: white; border-radius: 0.5rem; padding: 0.5rem 2rem; font-size: 1rem; font-weight: 600;'
+              class=" " type="submit" name="documentation_link">
+              Doumentation
+            </a>
+          </div>
+        </div>
+        <div style='margin-top: 1.5rem;' class=''>
+          <div class='tw-overflow-hidden tw-rounded-xl tw-shadow-lg'>
+            <img
+              src='https://res.cloudinary.com/dnc04r7sc/image/upload/v1663887265/tailors/api-home/hero6_wi2hbp.jpg'
+              style='width: 300px; height: 300px; object-fit: cover; border-radius: 1.5rem;'
+              class='tw-shadow-md' alt='Hero image' />
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</body>
+
+</html>
